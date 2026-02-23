@@ -1,0 +1,15 @@
+<table>
+  <tr *ngFor="let row of table; let i = index">
+    <td *ngFor="let element of row; let j = index" 
+        class="cell" 
+        [ngClass]="element.part">
+    </td>
+  </tr>
+</table>
+
+<div class="controls">
+  <button (click)="moveUp()">^</button>
+  <button (click)="moveDown()">v</button>
+  <button (click)="moveLeft()"><</button>
+  <button (click)="moveRight()">></button>
+</div>

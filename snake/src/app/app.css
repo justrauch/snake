@@ -1,0 +1,51 @@
+table {
+  border-collapse: collapse;   /* keine doppelten Ränder */
+  table-layout: fixed;          /* feste Spaltenbreite */
+}
+
+td, th {
+  border: 1px solid #333;
+  width: 35px;                  /* feste Breite */
+  height: 35px;                 /* feste Höhe */
+  padding: 0;                   /* Padding optional auf 0 */
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Grundlayout */
+td.cell {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 1px solid #333;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Kopf */
+td.cell.head-up    { background-color: blue; }
+td.cell.head-down  { background-color: blue; }
+td.cell.head-left  { background-color: blue; }
+td.cell.head-right { background-color: blue; }
+
+/* Schwanz */
+td.cell.tail-up    { background-color: yellow; }
+td.cell.tail-down  { background-color: yellow; }
+td.cell.tail-left  { background-color: yellow; }
+td.cell.tail-right { background-color: yellow; }
+
+/* Körper */
+td.cell.body-horizontal { background-color: green; }
+td.cell.body-vertical   { background-color: blueviolet; }
+
+/* Kurven / Ecken */
+td.cell.corner-ul { background-color:chartreuse; }
+td.cell.corner-ur { background-color:cyan; }
+td.cell.corner-dr { background-color:deeppink; }
+td.cell.corner-dl { background-color:chocolate; }
+
+/* Leeres Feld */
+td.cell.empty { background-color: white; }
+
+/* Food */
+td.cell.food { background-color: red; }
