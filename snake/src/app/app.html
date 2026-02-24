@@ -1,15 +1,30 @@
-<table>
-  <tr *ngFor="let row of table; let i = index">
-    <td *ngFor="let element of row; let j = index" 
-        class="cell" 
-        [ngClass]="element.part">
-    </td>
-  </tr>
-</table>
+<div class="game-container">
+  <!-- Linke Seite: Spielfeld -->
+  <div class="board">
+    <table>
+      <tr *ngFor="let row of table; let i = index">
+        <td *ngFor="let element of row; let j = index" 
+            class="cell" 
+            [ngClass]="element.part">
+        </td>
+      </tr>
+    </table>
+  </div>
 
-<div class="controls">
-  <button (click)="moveUp()">^</button>
-  <button (click)="moveDown()">v</button>
-  <button (click)="moveLeft()"><</button>
-  <button (click)="moveRight()">></button>
+  <!-- Rechte Seite: Buttons -->
+  <div class="controls">
+    <div class="game-buttons">
+      <button (click)="reset()">Neu</button>
+      <button (click)="startGame()">Starten</button>
+    </div>
+
+    <div class="direction-buttons">
+      <button (click)="moveUp()">^</button>
+      <div>
+        <button (click)="moveLeft()"><</button>
+        <button (click)="moveDown()">v</button>
+        <button (click)="moveRight()">></button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -33,17 +33,37 @@ export class App {
   table: Field[][] = [];
 
   constructor(private cd: ChangeDetectorRef) {
+  }
+
+  reset(){
+    clearInterval(this.intervalId);
+
+    this.snake_tail_x = 0;
+    this.snake_tail_y = 0;
+
+    this.snake_length = 3;
+    
+    this.snake_head_x = this.snake_length + 1;
+    this.snake_head_y = 0;
+
+    this.moveX = 1;
+    this.moveY = 0;
+
     this.generatetable();
     this.initsnake();
-    setInterval(() => {
+    this.spawnFruit();
+  }
+
+  startGame(){
+    this.intervalId = setInterval(() => {
       this.movesnake(this.moveX, this.moveY);
       this.cd.detectChanges();
-    }, 500);
+    }, 200);
   }
 
   generatetable() {
     this.table = Array.from({ length: this.rows }, (_, i) =>
-      Array.from({ length: this.cols }, (_, j) => new Field(Type.Empty, 0, 0, ""))
+      Array.from({ length: this.cols }, (_, j) => new Field(Type.Empty, 0, 0, "empty"))
     );
   }
   
@@ -62,27 +82,33 @@ export class App {
       this.snake_tail_x + tail.direction_x < 20 && this.snake_tail_y + tail.direction_y < 20 && 
       this.snake_head_x + x < 20 && this.snake_head_y + y < 20 && 
       this.snake_head_x + x >= 0 && this.snake_head_y + y >= 0 &&
-      this.table[this.snake_head_y + y][this.snake_head_x + x].type != Type.Empty ||
-      this.table[this.snake_head_y + y][this.snake_head_x + x].type != Type.Food
+      (this.table[this.snake_head_y + y][this.snake_head_x + x].type == Type.Empty ||
+      this.table[this.snake_head_y + y][this.snake_head_x + x].type == Type.Food)
     )
     {
-      this.table[this.snake_tail_y][this.snake_tail_x] = new Field(Type.Empty, 0, 0, "");
-      this.table[this.snake_tail_y + tail.direction_y][this.snake_tail_x + tail.direction_x].type = Type.Tail;
-      let new_tail: Field = this.table[this.snake_tail_y + tail.direction_y][this.snake_tail_x + tail.direction_x]
-      if (new_tail.direction_x == 1 && new_tail.direction_y == 0){
-        this.table[this.snake_tail_y + tail.direction_y][this.snake_tail_x + tail.direction_x].part = "tail-right";
+      if (this.table[this.snake_head_y + y][this.snake_head_x + x].type != Type.Food)
+      {
+        this.table[this.snake_tail_y][this.snake_tail_x] = new Field(Type.Empty, 0, 0, "empty");
+        this.table[this.snake_tail_y + tail.direction_y][this.snake_tail_x + tail.direction_x].type = Type.Tail;
+        let new_tail: Field = this.table[this.snake_tail_y + tail.direction_y][this.snake_tail_x + tail.direction_x]
+        if (new_tail.direction_x == 1 && new_tail.direction_y == 0){
+          this.table[this.snake_tail_y + tail.direction_y][this.snake_tail_x + tail.direction_x].part = "tail-right";
+        }
+        if (new_tail.direction_x == -1 && new_tail.direction_y == 0){
+          this.table[this.snake_tail_y + tail.direction_y][this.snake_tail_x + tail.direction_x].part = "tail-left";
+        }
+        if (new_tail.direction_x == 0 && new_tail.direction_y == 1){
+          this.table[this.snake_tail_y + tail.direction_y][this.snake_tail_x + tail.direction_x].part = "tail-down";
+        }
+        if (new_tail.direction_x == 0 && new_tail.direction_y == -1){
+          this.table[this.snake_tail_y + tail.direction_y][this.snake_tail_x + tail.direction_x].part = "tail-up";
+        }
+        this.snake_tail_x = this.snake_tail_x + tail.direction_x;
+        this.snake_tail_y = this.snake_tail_y + tail.direction_y;
       }
-      if (new_tail.direction_x == -1 && new_tail.direction_y == 0){
-        this.table[this.snake_tail_y + tail.direction_y][this.snake_tail_x + tail.direction_x].part = "tail-left";
+      else {
+        this.spawnFruit();
       }
-      if (new_tail.direction_x == 0 && new_tail.direction_y == 1){
-        this.table[this.snake_tail_y + tail.direction_y][this.snake_tail_x + tail.direction_x].part = "tail-down";
-      }
-      if (new_tail.direction_x == 0 && new_tail.direction_y == -1){
-        this.table[this.snake_tail_y + tail.direction_y][this.snake_tail_x + tail.direction_x].part = "tail-up";
-      }
-      this.snake_tail_x = this.snake_tail_x + tail.direction_x;
-      this.snake_tail_y = this.snake_tail_y + tail.direction_y;
       let body_old: Field = this.table[this.snake_head_y][this.snake_head_x];
       this.table[this.snake_head_y][this.snake_head_x] = new Field(Type.Body, x, y, "");
       if (body_old.direction_x == 1 && y == -1 || body_old.direction_y == 1 && x == -1){
@@ -119,25 +145,55 @@ export class App {
       this.snake_head_x = this.snake_head_x + x;
       this.snake_head_y = this.snake_head_y + y;
     }
+    else {
+      clearInterval(this.intervalId);
+    }
   }
 
-    moveUp() {
+  moveUp() {
+    if (this.moveY == 1) return;
     this.moveX = 0;
     this.moveY = -1;
   }
 
   moveDown() {
+    if (this.moveY == -1) return;
     this.moveX = 0;
     this.moveY = 1;
   }
 
   moveLeft() {
+    if (this.moveX == 1) return;
     this.moveX = -1;
     this.moveY = 0;
   }
 
   moveRight() {
+    if (this.moveX == -1) return;
     this.moveX = 1;
     this.moveY = 0;
+  }
+
+  spawnFruit() {
+    let x: number;
+    let y: number;
+
+    do {
+      x = Math.floor(Math.random() * this.cols);
+      y = Math.floor(Math.random() * this.rows);
+      console.log(x + " " + y);
+    } while (this.table[y][x].type != Type.Empty);
+
+    let fruit = Math.floor(Math.random() * 8);
+    this.table[y][x] = new Field(Type.Food, 0, 0, "fruit-cherry");
+
+    if (fruit == 0) this.table[y][x].part = "fruit-apple";
+    if (fruit == 1) this.table[y][x].part = "fruit-banana";
+    if (fruit == 2) this.table[y][x].part = "fruit-carrot";
+    if (fruit == 3) this.table[y][x].part = "fruit-cherry";
+    if (fruit == 4) this.table[y][x].part = "fruit-grape";
+    if (fruit == 5) this.table[y][x].part = "fruit-orange";
+    if (fruit == 6) this.table[y][x].part = "fruit-peach";
+    if (fruit == 7) this.table[y][x].part = "fruit-strawberry";
   }
 }

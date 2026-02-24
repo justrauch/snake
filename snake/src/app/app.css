@@ -1,13 +1,61 @@
+/* Container: Flexbox für links-rechts Layout */
+.game-container {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+/* Tabelle links */
+.board {
+  flex: 0 0 auto;
+}
+
 table {
-  border-collapse: collapse;   /* keine doppelten Ränder */
-  table-layout: fixed;          /* feste Spaltenbreite */
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 td, th {
   border: 1px solid #333;
-  width: 35px;                  /* feste Breite */
-  height: 35px;                 /* feste Höhe */
-  padding: 0;                   /* Padding optional auf 0 */
+  padding: 0;
+  margin: 0;
+  width: 35px;
+  height: 35px;
+}
+
+/* Buttons rechts */
+.controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  gap: 20px;
+}
+
+/* Richtungstasten zentriert */
+.direction-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.direction-buttons > div {
+  display: flex;
+  gap: 10px;
+}
+
+/* Optional: Buttons etwas größer */
+.direction-buttons button {
+  width: 50px;
+  height: 50px;
+  font-size: 18px;
+}
+
+td, th {
+  border: 1px solid #333;
+  width: 35px;
+  height: 35px;
+  padding: 0;
   text-align: center;
   vertical-align: middle;
 }
@@ -18,34 +66,42 @@ td.cell {
   height: 20px;
   padding: 0;
   border: 1px solid #333;
-  text-align: center;
-  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 /* Kopf */
-td.cell.head-up    { background-color: blue; }
-td.cell.head-down  { background-color: blue; }
-td.cell.head-left  { background-color: blue; }
-td.cell.head-right { background-color: blue; }
+td.cell.head-up    { background-image: url('/assets/snake-up.png'); }
+td.cell.head-down  { background-image: url('/assets/snake-down.png'); }
+td.cell.head-left  { background-image: url('/assets/snake-left.png'); }
+td.cell.head-right { background-image: url('/assets/snake-right.png'); }
 
 /* Schwanz */
-td.cell.tail-up    { background-color: yellow; }
-td.cell.tail-down  { background-color: yellow; }
-td.cell.tail-left  { background-color: yellow; }
-td.cell.tail-right { background-color: yellow; }
+td.cell.tail-up    { background-image: url('/assets/snake-tail-up.png'); }
+td.cell.tail-down  { background-image: url('/assets/snake-tail-down.png'); }
+td.cell.tail-left  { background-image: url('/assets/snake-tail-left.png'); }
+td.cell.tail-right { background-image: url('/assets/snake-tail-right.png'); }
 
 /* Körper */
-td.cell.body-horizontal { background-color: green; }
-td.cell.body-vertical   { background-color: blueviolet; }
+td.cell.body-horizontal { background-image: url('/assets/snake-body-horizontal.png'); }
+td.cell.body-vertical   { background-image: url('/assets/snake-body-vertical.png'); }
 
 /* Kurven / Ecken */
-td.cell.corner-ul { background-color:chartreuse; }
-td.cell.corner-ur { background-color:cyan; }
-td.cell.corner-dr { background-color:deeppink; }
-td.cell.corner-dl { background-color:chocolate; }
+td.cell.corner-ul { background-image: url('/assets/snake-body-ul.png'); }
+td.cell.corner-ur { background-image: url('/assets/snake-body-dr.png'); }
+td.cell.corner-dr { background-image: url('/assets/snake-body-ur.png'); }
+td.cell.corner-dl { background-image: url('/assets/snake-body-dl.png'); }
 
 /* Leeres Feld */
-td.cell.empty { background-color: white; }
+td.cell.empty { background-image: url('/assets/empty.png'); }
 
 /* Food */
-td.cell.food { background-color: red; }
+td.cell.fruit-apple { background-image: url('/assets/fruit-apple.png'); }
+td.cell.fruit-banana { background-image: url('/assets/fruit-banana.png'); }
+td.cell.fruit-carrot { background-image: url('/assets/fruit-carrot.png'); }
+td.cell.fruit-cherry { background-image: url('/assets/fruit-cherry.png'); }
+td.cell.fruit-grape { background-image: url('/assets/fruit-grape.png'); }
+td.cell.fruit-orange { background-image: url('/assets/fruit-orange.png'); }
+td.cell.fruit-peach { background-image: url('/assets/fruit-peach.png'); }
+td.cell.fruit-strawberry { background-image: url('/assets/fruit-strawberry.png'); }
