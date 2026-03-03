@@ -1,0 +1,30 @@
+.top-board {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.goal-board, .active-board {
+  display: flex;
+  gap: 10px;
+}
+
+.board {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  border: 1px solid black;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
+}

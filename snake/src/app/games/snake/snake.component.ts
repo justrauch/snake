@@ -1,16 +1,17 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { Field } from './models/Field';
 import { Type } from './models/Type';
-import { NgFor, NgClass } from '@angular/common';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-snake',
   standalone: true,
-  imports: [NgFor, NgClass],
-  templateUrl: './app.html',
-  styleUrls: ['./app.css']
+  imports: [RouterLink, CommonModule],
+  templateUrl: './snake.component.html',
+  styleUrls: ['./snake.component.css']
 })
-export class App {
+export class SnakeComponent {
 
   /* ===============================
      Spielfeld

@@ -1,0 +1,30 @@
+<button routerLink="/">Zurück zur Startseite</button>
+
+<div class="top-board">
+    <!-- Zielstapel -->
+    <div class="goal-board">
+        <div class="column" *ngFor="let row of goal">
+        <div class="card" *ngFor="let card of row.slice(-1)">
+            {{card.type + ' ' + card.color + ' ' + card.group}}
+        </div>
+        </div>
+    </div>
+
+    <!-- Aktiver Stapel (Talon) -->
+    <div class="active-board">
+    <div class="card" *ngFor="let card of active.slice(-3); let i = index"
+        (click)="card.flipped && tryCard(i, -1)">
+        {{ card.type + ' ' + card.color + ' ' + card.group }}
+    </div>
+    </div>
+    <button (click)="newCard()">{{ deck.length <= 0 ? "reset" : "new" }}</button>
+</div>
+
+<!-- Tableau / Spielfeld -->
+<div class="board">
+  <div class="column" *ngFor="let column of board; let i = index">
+    <div class="card" (click)="card.flipped && tryCard(i, j)" *ngFor="let card of column; let j = index">
+      {{ card.flipped ? (card.type + ' ' + card.color + ' ' + card.group) : '' }}
+    </div>
+  </div>
+</div>
