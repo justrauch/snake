@@ -1,30 +1,31 @@
-<button routerLink="/">Zurück zur Startseite</button>
-
+<div class="game-controls">
+  <p>Züge: {{score}}</p>
+  <button (click)="reset()" class="center-btn">Neu</button>
+  <button routerLink="/">Zurück zur Startseite</button>
+</div>
 <div class="top-board">
     <!-- Zielstapel -->
     <div class="goal-board">
-        <div class="column" *ngFor="let row of goal">
-        <div class="card" *ngFor="let card of row.slice(-1)">
-            {{card.type + ' ' + card.color + ' ' + card.group}}
-        </div>
+        <div class="column" *ngFor="let row of goal; let i = index">
+          <div class="card" [ngClass]="card.flipped ? card.group + '-' + card.type : 'joker'" *ngFor="let card of row.slice(-1)"
+            (click)="card.flipped && tryCard(i, row.length - 1, true)">
+          </div>
         </div>
     </div>
 
     <!-- Aktiver Stapel (Talon) -->
-    <div class="active-board">
-    <div class="card" *ngFor="let card of active.slice(-3); let i = index"
-        (click)="card.flipped && tryCard(i, -1)">
-        {{ card.type + ' ' + card.color + ' ' + card.group }}
+     <div class="row">
+      <div class="card" [ngClass]="card.flipped ? card.group + '-' + card.type : 'back'" *ngFor="let card of active.slice(-3); let i = index"
+          (click)="card.flipped && tryCard(i, -1)">
+      </div>
+    <button (click)="newCard()" [innerHTML]="deck.length <= 0 ? 'auf<br>Anfang' : 'neue<br>Karte'"></button>
     </div>
-    </div>
-    <button (click)="newCard()">{{ deck.length <= 0 ? "reset" : "new" }}</button>
 </div>
 
 <!-- Tableau / Spielfeld -->
 <div class="board">
-  <div class="column" *ngFor="let column of board; let i = index">
-    <div class="card" (click)="card.flipped && tryCard(i, j)" *ngFor="let card of column; let j = index">
-      {{ card.flipped ? (card.type + ' ' + card.color + ' ' + card.group) : '' }}
+  <div class="column-overlap" *ngFor="let column of board; let i = index">
+    <div class="card" [ngClass]="card.flipped ? card.group + '-' + card.type : 'back'" (click)="card.flipped && tryCard(i, j)" *ngFor="let card of column; let j = index">
     </div>
   </div>
 </div>
