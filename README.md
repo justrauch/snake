@@ -1,6 +1,6 @@
 Starten
 
-/snake
+/browser-games
 
 ng serve
 
