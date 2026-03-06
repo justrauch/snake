@@ -1,0 +1,27 @@
+  <p>Anzahl Bomben: {{bombs}}</p>
+<div class="button-row">
+  <button (click)="setDifficulty(0)">Anfänger</button>
+  <button (click)="setDifficulty(1)">Fortgeschritten</button>
+  <button (click)="setDifficulty(2)">Experte</button>
+  <button routerLink="/" class="right-button">Zurück zur Startseite</button>
+</div>
+  <div class="board">
+    <table>
+      <tr *ngFor="let row of table; let i = index">
+        <td *ngFor="let element of row; let j = index"
+            (click)="revealField(j, i)"
+            [ngClass]="(element.is_revealed ? 'rev' : 'not_rev') + 
+            (element.type < 0 ? ' bomb' : 
+            (element.type == 1 ? ' one' : 
+            (element.type == 2 ? ' two' : 
+            (element.type == 3 ? ' three' : 
+            (element.type == 4 ? ' four' : 
+            (element.type == 5 ? ' five' : 
+            (element.type == 6 ? ' six' : 
+            (element.type == 7 ? ' seven' : 
+            (element.type == 8 ? ' eight' : '')))))))))">
+            {{element.is_revealed && element.type >= 0 ? element.type : ""}}
+        </td>
+      </tr>
+    </table>
+  </div>

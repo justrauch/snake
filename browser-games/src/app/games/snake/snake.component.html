@@ -13,9 +13,11 @@
 
   <!-- Rechte Seite: Buttons -->
   <div class="controls">
+    <button routerLink="/">Zurück zur Startseite</button>
     <div class="game-buttons">
-      <button (click)="reset()">Neu</button>
-      <button (click)="startGame()">Starten</button>
+    <button (click)="handleButtonClick()">
+      {{ is_active ? 'Neu' : 'Starten' }}
+    </button>
       <p>Aktueller Score: {{score}}</p>
       <p>Bester Score: {{bestScore}}</p>
     </div>
@@ -29,6 +31,4 @@
       </div>
     </div>
   </div>
-
-  <button routerLink="/">Zurück zur Startseite</button>
 </div>

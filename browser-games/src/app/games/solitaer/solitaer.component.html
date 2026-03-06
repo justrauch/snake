@@ -1,5 +1,5 @@
 <div class="game-controls">
-  <p>Züge: {{score}}</p>
+  <p>Aktuell Versuch: {{score}} &nbsp;&nbsp;&nbsp; Bester Versuch: {{best_score}}</p>
   <button (click)="reset()" class="center-btn">Neu</button>
   <button routerLink="/">Zurück zur Startseite</button>
 </div>
@@ -13,7 +13,7 @@
         </div>
     </div>
 
-    <!-- Aktiver Stapel (Talon) -->
+    <!-- Aktiver Stapel -->
      <div class="row">
       <div class="card" [ngClass]="card.flipped ? card.group + '-' + card.type : 'back'" *ngFor="let card of active.slice(-3); let i = index"
           (click)="card.flipped && tryCard(i, -1)">
@@ -22,7 +22,7 @@
     </div>
 </div>
 
-<!-- Tableau / Spielfeld -->
+<!-- Spielfeld -->
 <div class="board">
   <div class="column-overlap" *ngFor="let column of board; let i = index">
     <div class="card" [ngClass]="card.flipped ? card.group + '-' + card.type : 'back'" (click)="card.flipped && tryCard(i, j)" *ngFor="let card of column; let j = index">

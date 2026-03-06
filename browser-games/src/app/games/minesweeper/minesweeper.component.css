@@ -1,0 +1,75 @@
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.button-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.right-button {
+  margin-left: auto;
+}
+
+td, th {
+  border: 1px solid whitesmoke;
+  padding: 0;
+  margin: 0;
+  width: 35px;
+  height: 35px;
+  text-align: center;
+}
+
+td.rev {
+    background-color: #333;
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    font-size: 30px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+td.rev.bomb {
+    background-color: #333;
+    background-image: url('/assets/bomb.png');
+}
+
+td.rev.one {
+    color: lightblue;
+}
+
+td.rev.two {
+    color:lightgreen;
+}
+
+td.rev.three {
+    color:lightcoral;
+}
+
+td.rev.four {
+    color:lightpink;
+}
+
+td.rev.five {
+    color:lightsalmon;
+}
+
+td.rev.six {
+    color:lightyellow;
+}
+
+td.rev.seven {
+    color:lightgoldenrodyellow;
+}
+
+td.rev.seven {
+    color:lightcyan;
+}
+
+td.not_rev {
+    background-color: black;
+}

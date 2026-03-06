@@ -16,6 +16,7 @@ import { Type } from './models/Type';
 export class SolitaerComponent {
 
   score: number = 0;
+  best_score: number = 0;
 
   goal: Field[][] = [];
 
@@ -220,6 +221,14 @@ export class SolitaerComponent {
       }
 
       if (moved) this.score++;
+
+      if (
+        this.score > this.best_score && 
+        this.active.length === 0 && 
+        this.board.every(inner => inner.length === 0)
+      ) {
+        this.best_score = this.score;
+      }
     }
   }
 }

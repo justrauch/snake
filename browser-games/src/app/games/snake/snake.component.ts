@@ -48,6 +48,8 @@ export class SnakeComponent {
   score = 0;
   bestScore = 0;
 
+  is_active = false;
+
   private gameIntervalId: any;
 
   constructor(private cd: ChangeDetectorRef) {
@@ -78,9 +80,20 @@ export class SnakeComponent {
     this.spawnFruit();
   }
 
+  handleButtonClick(): void {
+    if (this.is_active) {
+      this.reset();
+    } else {
+      this.startGame();
+    }
+  }
+
   reset(): void {
     clearInterval(this.gameIntervalId);
+    if (this.score > this.bestScore) this.bestScore = this.score;
     this.initTable();
+
+    this.is_active = false;
   }
 
   /* ==========================================================
@@ -88,6 +101,7 @@ export class SnakeComponent {
   ========================================================== */
 
   startGame(): void {
+    this.is_active = true;
     this.gameIntervalId = setInterval(() => {
       this.moveSnake(this.directionX, this.directionY);
       this.cd.detectChanges();
